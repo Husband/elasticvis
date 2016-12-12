@@ -39,12 +39,36 @@ $ php artisan migrate
     'models' => ['Article', 'Product'],
 ```
 В модели которые будут индексироваться добавляем метод
-...php
+``` php
    public function getCategoryIdAttribute()
     {
-        return $this->id_industry;
+        return $this->id_category;
     }
-...
+```
+
+В контроллер добавляем методы
+``` php
+    public function search()
+    {
+        $query = Request::input('q');
+        $searchResults = (new \Matchish\ElasticVis\Search)->search($query, [\Article::class, \News::class]);
+        return view('pages.search', compact('searchResults'));
+    }
+
+    public function instantsearch()
+    {
+        $term = Request::input('q');
+        (new \Matchish\ElasticVis\Search)->instantsearch($term, [\Article::class, \News::class]);
+    }
+```
+И роуты для них
+
+Индексируем модели
+``` bash
+$ php artisan elasticvis:reindex
+```
+При обновлении моделей индекс будет обновлятьс автоматически.
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
