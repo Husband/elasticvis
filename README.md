@@ -32,13 +32,19 @@ $ php artisan migrate
 
 ## Usage
 
-В конфиге прописываем имя индекса и модели которые нужно индексировать
+В конфиге elasticvis.php прописываем имя индекса и модели которые нужно индексировать
 
 ``` php
     'default_index' => 'hlr_blog',
     'models' => ['Article', 'Product'],
 ```
-
+В модели которые будут индексироваться добавляем метод
+...php
+   public function getCategoryIdAttribute()
+    {
+        return $this->id_industry;
+    }
+...
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
