@@ -15,6 +15,21 @@ Via Composer
 $ composer require matchish/elasticvis
 ```
 
+Добавляем в файле app.php в блок providers
+```php
+  Matchish\ElasticVis\ElasticVisServiceProvider::class,
+```
+
+Публикуем ресурсы
+``` bash
+$ php artisan vendor:publish --tag=elasticvis
+```
+
+Выполняем миграции
+``` bash
+$ php artisan migrate
+```
+
 ## Usage
 
 ``` php
