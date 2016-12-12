@@ -35,7 +35,7 @@ $ php artisan migrate
 В конфиге elasticvis.php прописываем имя индекса и модели которые нужно индексировать
 
 ``` php
-    'default_index' => 'hlr_blog',
+    'default_index' => 'project_name',
     'models' => ['Article', 'Product'],
 ```
 В модели которые будут индексироваться добавляем метод
@@ -51,14 +51,14 @@ $ php artisan migrate
     public function search()
     {
         $query = Request::input('q');
-        $searchResults = (new \Matchish\ElasticVis\Search)->search($query, [\Article::class, \News::class]);
+        $searchResults = (new \Matchish\ElasticVis\Search)->search($query, [\Article::class, \Product::class]);
         return view('pages.search', compact('searchResults'));
     }
 
     public function instantsearch()
     {
         $query = Request::input('q');
-        (new \Matchish\ElasticVis\Search)->instantsearch($query, [\Article::class, \News::class]);
+        (new \Matchish\ElasticVis\Search)->instantsearch($query, [\Article::class, \Product::class]);
     }
 ```
 И роуты для них
