@@ -57,8 +57,8 @@ $ php artisan migrate
 
     public function instantsearch()
     {
-        $term = Request::input('q');
-        (new \Matchish\ElasticVis\Search)->instantsearch($term, [\Article::class, \News::class]);
+        $query = Request::input('q');
+        (new \Matchish\ElasticVis\Search)->instantsearch($query, [\Article::class, \News::class]);
     }
 ```
 И роуты для них
