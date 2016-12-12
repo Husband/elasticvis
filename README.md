@@ -32,9 +32,11 @@ $ php artisan migrate
 
 ## Usage
 
+В конфиге прописываем имя индекса и модели которые нужно индексировать
+
 ``` php
-$skeleton = new Matchish\ElasticVis();
-echo $skeleton->echoPhrase('Hello, League!');
+    'default_index' => 'hlr_blog',
+    'models' => ['Article', 'Product'],
 ```
 
 ## Change log
