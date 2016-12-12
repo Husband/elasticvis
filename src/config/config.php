@@ -27,18 +27,13 @@ return array(
     | Elasticquent models.
     */
 
-    'default_index' => 'hlr_blog',
+    'default_index' => 'project_name',
 
-    'models' => ['Article', 'Product'],
+    'models' => ['Article', 'News'],
 
     'settings' => [
         'analysis' => [
             'analyzer' => [
-                'larasearch_keyword' => [
-                    'type' => "custom",
-                    'tokenizer' => "keyword",
-                    'filter' => ["lowercase", "larasearch_stemmer"]
-                ],
                 'default_index' => [
                     'type' => "custom",
                     'tokenizer' => "standard",
@@ -47,72 +42,17 @@ return array(
                 'larasearch_search' => [
                     'type' => "custom",
                     'tokenizer' => "standard",
-                    'filter' => ["standard", "lowercase", "asciifolding", "larasearch_search_shingle", "larasearch_stemmer"]
-                ],
-                'larasearch_search2' => [
-                    'type' => "custom",
-                    'tokenizer' => "standard",
                     'filter' => ["standard", "lowercase", "asciifolding", "larasearch_stemmer"]
-                ],
-                'larasearch_search3' => [
-                    'type' => "custom",
-                    'tokenizer' => "standard",
-                    'filter' => ["standard", "lowercase", "asciifolding", "cyrillic_latin", "larasearch_stemmer"]
-                ],
-                'larasearch_search4' => [
-                    'type' => "custom",
-                    'tokenizer' => "standard",
-                    'filter' => ["standard", "lowercase", "asciifolding", "latin_cyrillic", "larasearch_stemmer"]
-                ],
-                'larasearch_autocomplete_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "larasearch_autocomplete_ngram",
-                    'filter' => ["lowercase", "asciifolding"]
-                ],
-                'larasearch_autocomplete_search' => [
-                    'type' => "custom",
-                    'tokenizer' => "keyword",
-                    'filter' => ["lowercase", "asciifolding"]
                 ],
                 'larasearch_word_search' => [
                     'type' => "custom",
                     'tokenizer' => "standard",
                     'filter' => ["lowercase", "asciifolding"]
                 ],
-                'larasearch_suggest_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "standard",
-                    'filter' => ["lowercase", "asciifolding", "larasearch_suggest_shingle"]
-                ],
-                'larasearch_text_start_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "keyword",
-                    'filter' => ["lowercase", "asciifolding", "larasearch_edge_ngram"]
-                ],
-                'larasearch_text_middle_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "keyword",
-                    'filter' => ["lowercase", "asciifolding", "larasearch_ngram"]
-                ],
-                'larasearch_text_end_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "keyword",
-                    'filter' => ["lowercase", "asciifolding", "reverse", "larasearch_edge_ngram", "reverse"]
-                ],
                 'larasearch_word_start_index' => [
                     'type' => "custom",
                     'tokenizer' => "standard",
                     'filter' => ["lowercase", "asciifolding", "larasearch_edge_ngram"]
-                ],
-                'larasearch_word_middle_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "standard",
-                    'filter' => ["lowercase", "asciifolding", "larasearch_ngram"]
-                ],
-                'larasearch_word_end_index' => [
-                    'type' => "custom",
-                    'tokenizer' => "standard",
-                    'filter' => ["lowercase", "asciifolding", "reverse", "larasearch_edge_ngram", "reverse"]
                 ]
             ],
             'filter' => [
@@ -185,13 +125,15 @@ return array(
                                 # and the _all index analyzer will take care of it
                                 '{name}' => ['type' => 'string', 'index' => 'not_analyzed'],
                                 'analyzed' => ['type' => 'string', 'index' => 'analyzed', 'analyzer' => 'default_index'],
-                                'autocomplete' => ['type' => 'string', 'index' => 'analyzed', 'analyzer' => 'larasearch_autocomplete_index'],
+                                'instantsearch' => ['type' => 'string', 'index' => 'analyzed', 'analyzer' => 'larasearch_word_start_index'],
                             ]
                         ]
                     ]
                 ]
             ]
         ],
-    ]
+    ],
+
+    'instantsearch' => ['limit' => 5]
 
 );
